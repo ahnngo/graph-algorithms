@@ -38,5 +38,3 @@ graph.add_edge(11, 12)
 print("DFS Recursive")
 graph.dfs_traversal(1)
 
-print("DFS Iterative")
-graph.dfs_iterative(1)
