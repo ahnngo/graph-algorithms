@@ -6,6 +6,9 @@ def prim(graph, start):
     :param graph: adjacency matrix of graph
     :param start: starting vertex to create the minimum spanning tree
     :return: minimum spanning tree and the total cost
+
+    Time complexity: O((V+E)logV)
+    Space complexity: O(V+E)
     """
     mst = [start]
     totalCost = 0
