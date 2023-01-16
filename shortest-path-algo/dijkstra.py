@@ -34,7 +34,6 @@ class Graph:
         for i in range(self.v):
             # traverse to the closet node from the current vertex
             min_vertex = self.find_min_vertex()
-            print("Min vertex", min_vertex)
             self.visited[min_vertex] = True
 
             for j in range(self.v):
