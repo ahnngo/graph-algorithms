@@ -4,38 +4,41 @@ class Graph:
         self.V = vertices
         self.graph = []
         self.visited = [False for i in range(self.V)]
+        # self.parent maps a node to a parent it is associated with
+        # self.rank maps a node to its ranking for union
+        self.parent, self.rank = {}, {}
+        for i in range(self.V):
+            self.parent[i] = i
+            self.rank[i] = 0
 
     def add_edge(self, u, v, w):
         self.graph.append([u, v, w])
 
-    # path compression
-    def find(self, parent, ele):
-        if ele != parent[ele]:
-            parent[ele] = self.find(parent, parent[ele])
-        return parent[ele]
+    def find(self, v):
+        while v != self.parent[v]:
+            # path compression
+            # if the vertex is not the same as the parent, move to the vertex upper the tree
+            self.parent[v] = self.parent[self.parent[v]]
+            v = self.parent[v]
+        # return the parent
+        return v
 
     # union by rank
-    def union(self, parent, rank, x, y):
-        if rank[x] < rank[y]:
-            parent[x] = y
-        elif rank[x] > rank[y]:
-            rank[y] = x
+    def union(self, x, y):
+        if self.rank[x] < self.rank[y]:
+            self.parent[x] = y
+        elif self.rank[x] > self.rank[y]:
+            self.rank[y] = x
         else:
-            parent[y] = x
-            rank[x] += 1
+            self.parent[y] = x
+            self.rank[x] += 1
 
     def kruskal(self):
         mst = []
 
         # step 1: sort all edges
         self.graph = sorted(self.graph, key=lambda item: item[2])
-
-        parent, rank = [], []
-
-        # create subsets
-        for v in range(self.V):
-            parent.append(v)
-            rank.append(0)
+        print(self.graph)
 
         edges = 0
         i = 0
@@ -44,14 +47,14 @@ class Graph:
             u, v, w = self.graph[i]
             i += 1
 
-            x = self.find(parent, u)
-            y = self.find(parent, v)
+            x = self.find(u)
+            y = self.find(v)
 
             # include the edge if its not making cycle
             if x != y:
                 mst.append([u, v, w])
                 edges += 1
-                self.union(parent, rank, x, y)
+                self.union(x, y)
 
         min_cost = 0
         for u, v, w in mst:
@@ -62,20 +65,11 @@ class Graph:
 
 
 # Driver code
-graph = Graph(8)
+g = Graph(4)
+g.add_edge(0, 1, 10)
+g.add_edge(0, 2, 6)
+g.add_edge(0, 3, 5)
+g.add_edge(1, 3, 15)
+g.add_edge(2, 3, 4)
 
-graph.add_edge(2, 6, 2)
-graph.add_edge(2, 7, 9)
-graph.add_edge(4, 2, 1)
-graph.add_edge(4, 3, 8)
-graph.add_edge(0, 1, 8)
-graph.add_edge(3, 7, 7)
-graph.add_edge(0, 5, 4)
-graph.add_edge(4, 0, 2)
-graph.add_edge(2, 3, 4)
-graph.add_edge(0, 3, 6)
-graph.add_edge(2, 1, 10)
-graph.add_edge(3, 5, 8)
-graph.add_edge(6, 1, 7)
-
-graph.kruskal()
+g.kruskal()
