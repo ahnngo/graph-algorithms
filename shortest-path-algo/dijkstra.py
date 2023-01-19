@@ -30,7 +30,10 @@ class Graph:
         return min_vertex
 
     def dijkstra(self):
-
+        """
+        Time Complex: O(V^2)
+        Space Complex: O(V)
+        """
         for i in range(self.v):
             # traverse to the closet node from the current vertex
             min_vertex = self.find_min_vertex()
