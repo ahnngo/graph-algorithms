@@ -10,6 +10,9 @@ class Graph:
         self.graph.append([s, d, w])
 
     def bellman_ford(self, src):
+        """
+        Time complexity: O(VE)
+        """
         self.dist[src] = 0
 
         # relax v-1

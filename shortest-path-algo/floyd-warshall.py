@@ -2,6 +2,11 @@ INF = float('inf')
 
 
 def floyd_warshall(graph):
+    """
+    :param graph:
+    :return:
+    Time Complexity: O(V^3)
+    """
     V = len(graph)
     dist = graph
 

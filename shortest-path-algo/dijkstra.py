@@ -31,7 +31,7 @@ class Graph:
 
     def dijkstra(self):
         """
-        Time Complex: O(V^2)
+        Time Complex: O(VlogE)
         Space Complex: O(V)
         """
         for i in range(self.v):
