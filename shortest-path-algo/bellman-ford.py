@@ -20,7 +20,7 @@ class Graph:
             # u for source, v for dest, and c for cost
             for u, v, c in self.graph:
                 # If there is a path from the source to u existing and
-                # the cost from u to c is less than what already exists from source to v
+                # the cost from u to v is less than what already exists from source to v
                 # Update the cost and update the path
                 if self.dist[u] != float('inf') and self.dist[u] + c < self.dist[v]:
                     self.dist[v] = self.dist[u] + c
